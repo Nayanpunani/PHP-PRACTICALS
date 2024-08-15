@@ -1,0 +1,79 @@
+  <div class="containerr" style="display: flex;">
+    <div class="leff" style="width: 50%">
+  <form method="POST" id="regForm" enctype="multipart/form-data">
+   
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
+        <div class="col-sm-10">
+        <input type="text" name="cat" placeholder="Enter Category" required>
+        </div>
+      </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+        <input type="text" name="des" placeholder="Enter Description" required>
+        </div>
+      </div>
+    <input type="submit" class="btn btn-primary" id="btn" name="submit" onclick="add();"value="Add">
+     </form>
+   </div>
+   <?php 
+    include  "db.php";
+    $all = "SELECT * FROM category";
+    $aa = mysqli_query($db, $all);
+
+    $a = mysqli_num_rows($aa);
+    if($a>0){
+  ?>
+
+   <div class="righh" style="width: 50%">
+
+    <table class="table table-striped">
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        <?php while($row = mysqli_fetch_array($aa)){   ?>
+          <?php echo $row['id']; ?>
+        <tr>
+          <td><?php echo $row['cat'] ?></td>
+          <td><?php echo $row['desc'] ?></td>
+          <td><a class="btn btn-outline-dark">Edit</a></td>
+          <td><a class="btn btn-outline-dark">Delete</a></td>
+        </tr>
+        <?php } ?>
+
+      </table>
+ </div>
+<?php } ?>
+</div>
+<script type="text/javascript">
+  
+     function add(){
+      $.ajax({
+        method:"POST",
+        url: "category.php",
+        data:$(this).serialize(),
+        success: function(data){
+        alert(data);
+  }});
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
